@@ -16,3 +16,6 @@ nvm_tmp_path: /tmp/install_nvm
 
 # NVM version to install
 nvm_version: "v0.33.5"
+
+# User to install NVM to
+nvm_user: "ubuntu"
