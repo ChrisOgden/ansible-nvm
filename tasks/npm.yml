@@ -1,8 +1,12 @@
 ---
 
 - name: Installing global NPM packages
+  become: true
+  become_user: "{{ nvm_user }}"
   npm:
     name: "{{ item }}"
-    executable: "{{ nvm_dir }}/versions/node/{{ nvm_node_version }}/bin/npm"
+    #executable: "{{ nvm_dir }}/versions/node/{{ nvm_node_version }}/bin/npm"
     global: yes
   with_items: "{{ nvm_npm_global_packages }}"
+  environment:
+    PATH: "{{ nvm_dir }}/versions/node/{{ nvm_node_version }}/bin:{{ ansible_env.PATH }}"
