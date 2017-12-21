@@ -1,12 +1,16 @@
 ---
 
 - name: Find shell profile scripts
+  become: true
+  become_user: "{{ nvm_user }}"
   stat:
     path: "{{ nvm_home }}/{{ item }}"
   with_items: "{{ nvm_shell_profile_scripts }}"
   register: nvm_shell_profile_st
 
 - name: Set NVM_DIR in shell profiles
+  become: true
+  become_user: "{{ nvm_user }}"
   lineinfile:
     dest: "{{ nvm_home }}/{{ item.item }}"
     line: 'export NVM_DIR="$HOME/.nvm"'
@@ -15,6 +19,8 @@
   when: item.stat.exists
 
 - name: Source nvm.sh in shell profiles
+  become: true
+  become_user: "{{ nvm_user }}"
   lineinfile:
     dest: "{{ nvm_home }}/{{ item.item }}"
     line: '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm'
