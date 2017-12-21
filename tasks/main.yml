@@ -11,20 +11,28 @@
 
 # Check if NMV directory already exists
 - name: Does NVM already exists?
+  become: true
+  become_user: "{{ nvm_user }}"
   stat:
     path: "{{ nvm_dir }}"
   register: nvm_st
 
 # Install NVM
-- include: install.yml
+  become: true
+  become_user: "{{ nvm_user }}"
+- import_tasks: install.yml
   when: not nvm_st.stat.exists
 
 # Configure shell
-- include: shell.yml
+  become: true
+  become_user: "{{ nvm_user }}"
+- import_tasks: shell.yml
   when: nvm_shell_init
 
 # Install default Node.js versions
-- include: versions.yml
+  become: true
+  become_user: "{{ nvm_user }}"
+- import_tasks: versions.yml
 
 # Disable NPM installation as it's failing on Ansible 2.4.0.0
 # https://github.com/ansible/ansible/issues/29240
