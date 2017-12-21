@@ -1,4 +1,4 @@
 ---
 
-nvm_home: "{{ ansible_env.HOME }}"
+nvm_home: "/home/{{ nvm_user }}"
 nvm_dir: "{{ nvm_home }}/.nvm"
