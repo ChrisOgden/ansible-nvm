@@ -21,6 +21,13 @@
     path: "{{ nvm_tmp_path }}/install.sh"
     mode: 0755
 
+- name: Set nvm script permissions
+  become: true
+  become_user: "{{ nvm_user }}"
+  file:
+    path: "{{ nvm_tmp_path }}/nvm.sh"
+    mode: 0755
+
 - name: Run NVM installation script
   become: true
   become_user: "{{ nvm_user }}"
